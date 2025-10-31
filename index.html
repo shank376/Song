@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Music - Ether</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 3rem 1rem;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #ff0080;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px #ff0080;
+    }
+
+    /* Background animation: flowing music waves */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://www.transparenttextures.com/patterns/cubes.png');
+      opacity: 0.07;
+      z-index: -1;
+    }
+
+    .certificates-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .certificate-row {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 0, 128, 0.4);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s;
+      backdrop-filter: blur(6px);
+    }
+
+    .certificate-row:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
+    }
+
+    .certificate-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .btn-view {
+      background: linear-gradient(45deg, #ff0080, #7928ca);
+      color: white;
+      padding: 0.6rem 1.3rem;
+      border: none;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .btn-view:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 0, 128, 0.6);
+    }
+
+    /* Floating musical notes animation */
+    @keyframes floatNotes {
+      0% { transform: translateY(0); opacity: 0.8; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .note {
+      position: fixed;
+      bottom: -10px;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.3);
+      animation: floatNotes linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Music</h1>
+
+  <div class="certificates-container">
+    <div class="certificate-row">
+      <span class="certificate-title">ektarfa</span>
+      <a href="ektarfa.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
+    </div>
+
+    <div class="certificate-row">
+      <span class="certificate-title">faaslo ka pyaar</span>
+      <a href="music/stars_dont_sleep.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
+    </div>
+
+    <div class="certificate-row">
+      <span class="certificate-title">na pata mujhe</span></span>
+      <a href="music/anjali_story_untold.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
+    </div>
+
+    <div class="certificate-row">
+      <span class="certificate-title"></span>
+      <a href="music/beyond_the_skyline.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
+    </div>
+  </div>
+
+  <!-- Floating musical notes -->
+  <script>
+    const notes = ['🎵','🎶','♩','♪','♬'];
+    setInterval(() => {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerText = notes[Math.floor(Math.random()*notes.length)];
+      note.style.left = Math.random()*100 + 'vw';
+      note.style.animationDuration = (Math.random()*5 + 5) + 's';
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 10000);
+    }, 500);
+  </script>
+</body>
+</html>
