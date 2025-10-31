@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>how are you | Ether</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      height: 100%;
+    }
+
+    /* Dancing Sparks Background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #ffb703;
+      text-shadow: 0 0 15px #ffb703;
+    }
+
+    .lyrics {
+      max-width: 700px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      text-align: center;
+      white-space: pre-line;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      background: #ffb703;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 30px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+
+    .back-btn:hover {
+      background: #fff;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .lyrics {
+        font-size: 1rem;
+        padding: 15px 18px;
+      }
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="sparks"></canvas>
+
+  <div class="container">
+    <h1>how are you</h1>
+    <div class="lyrics">
+Thik hu main
+Tu bta kaisi hai ? Kaisa hai haal tera
+Baatein toh hoti nahi ab humari
+Par iska na kabhi malaal rakha
+Teri yaadon ko dil ne sambhal rakha
+Saari photo ko maine nikal rakha
+Aur chupa di wo yaadein kitabo ke bich m
+Taaki na puchu sawaal kudhse
+Kya thi wajah ?
+Mujhe bhi pta na , aakhir sawaal kaisa
+Jwaab toh paas tha tere
+Par tu hua sant amawas ki chaand jaisa
+Teri aakhon mein maine tha chaand dekha
+Aur main na tujko taare chand deta
+Par dil ke wo saare armaan detaxq
+JustMere prem ka kya hi praman deta
+Ab baitha main kudhke sath m
+Likha ye gaana , ab raat ke baad mein
+Ban baithe shyar hum pyar mein tere 
+Zamane ke shor se dur azaad maia
+Bas tera khyaal hai sath mein
+Raaton mein nikle ye dard jabaan se
+KhusG
+L hiyo ke badal ho sir pe tere
+Inhi dua se bhar diya pura jahaan ye 
+Ab baitha main kudhke sath m
+Likha ye gaana , ab raat ke baad mein
+Ban baithe shyar hum pyar mein tere
+Zamane ke shor se dur azaad mai
+Bas tera khyaal hai sath mein
+Raaton mein nikle ye dard jabaan se
+Khushiyo ke badal ho sir pe tere
+Inhi dua se bhar diya pura jahaan ye
+
+Verse 2
+
+Mai bhi hu thik
+Na koi hai sath , toh phir ye sawaal kaisa
+Han chor ke gyi thi hath ye mera 
+Par tune bhi thama na sath waise
+Tere wadon ko maine tha yaad rakha
+Mere dil ke kone mein tha pyar tera
+Zamane ki baaton se hui kafaa
+Par tu jaane mujhe tu smbhal leta
+Aya mai waps tha
+Par mere dil mein tha dar tuna paas hoga
+Toh phir jeene ka kya wo yehsas hoga
+Hum bichde toh dard ka sath hoga
+Meri aakhon mein tune tha chaand dekha
+Par ye chaand samete hai daag gehra
+Tu naraaj hai mujhse , hum maan baithe
+Tbhi likha na tujko jawaab phirse
+Ab baitha main kudhke sath mein
+Likha bs gaane , samet ke khwaab ye
+Padhu kitabe aur shayri yaad mein
+Kudhke hi shor mein kaid awaaz ye
+Bas tera khyal hai sath mein
+Raaton mein nikle kyu aasu in aakh se
+Khushiyon ka badal ho sir pe term
+Inhi dua bhar diya pura jahaan ye
+Ab baithi main kudhke sath mein
+Likha bs gaane , samet ke khwaab ye
+Padhu kitabe aur shayri yaad mein
+Kudhke hi shor mein kaid awaaz ye
+Bas tera khyal hai sath mein
+Raaton mein nikle kyu aasu in aakh se
+Khushiyon ka badal ho sir pe term
+Inhi dua bhar diya pura jahaan ye
+    </div>
+    <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("sparks");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    const colors = ["#ffb703", "#f72585", "#4cc9f0", "#7209b7"];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
+</body>
+</html>
