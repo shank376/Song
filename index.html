@@ -1,140 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Music - Ether</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Music by Ether</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      padding: 3rem 1rem;
-      overflow-x: hidden;
+    :root{
+      --bg:#040308;
+      --panel:#0b0b11;
+      --edge: linear-gradient(135deg,#7a3bff,#007bff);
+      --glow-1: rgba(122,59,255,0.18);
+      --glow-2: rgba(0,123,255,0.12);
+      --text: #e9eefc;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100%;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(122,59,255,0.06), transparent),
+        radial-gradient(700px 300px at 90% 90%, rgba(0,123,255,0.04), transparent),
+        var(--bg);
+      color:var(--text);
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding: clamp(18px, 3.5vw, 40px);
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
     }
 
-    h1 {
-      color: #ff0080;
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 15px #ff0080;
+    .wrap{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      animation:contentIn .7s cubic-bezier(.2,.9,.25,1);
     }
 
-    /* Background animation: flowing music waves */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('https://www.transparenttextures.com/patterns/cubes.png');
-      opacity: 0.07;
-      z-index: -1;
+    header{
+      text-align:center;
+      margin-bottom:1.25rem;
+    }
+    .site-title{
+      font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+      font-weight:700;
+      letter-spacing:1px;
+      color:linear-gradient(90deg,#fff,#ddd);
+      margin-bottom:6px;
+      background: linear-gradient(90deg,#b8c6ff,#e9b3ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .subtitle{
+      color: rgba(255,255,255,0.75);
+      font-size: 0.95rem;
+      margin-top:4px;
     }
 
-    .certificates-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      max-width: 700px;
-      margin: auto;
+    /* Grid of tiles */
+    .grid {
+      display: grid;
+      gap: clamp(12px, 2vw, 20px);
+      /* responsive columns: min tile 220px */
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      align-items:stretch;
     }
 
-    .certificate-row {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255, 0, 128, 0.4);
-      border-radius: 12px;
-      padding: 1rem 2rem;
-      text-align: left;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: 0.3s;
-      backdrop-filter: blur(6px);
+    .tile {
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+      border-radius: 14px;
+      padding: 1.2rem;
+      border: 1px solid rgba(255,255,255,0.03);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:160px;
+      position:relative;
+      overflow:hidden;
+      transition: transform .28s cubic-bezier(.2,.9,.25,1), box-shadow .28s;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .certificate-row:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 25px rgba(255, 0, 128, 0.4);
+    /* decorative edge glow */
+    .tile::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:14px;
+      padding:2px;
+      pointer-events:none;
+      background: linear-gradient(180deg, rgba(122,59,255,0.03), rgba(0,123,255,0.02));
+      mix-blend-mode: screen;
+      transform: translateZ(0);
     }
 
-    .certificate-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
+    .tile:hover, .tile:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 6px 26px var(--glow-1);
+      z-index:2;
     }
 
-    .btn-view {
-      background: linear-gradient(45deg, #ff0080, #7928ca);
-      color: white;
-      padding: 0.6rem 1.3rem;
-      border: none;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+    .tile:active {
+      transform: translateY(-2px) scale(.997);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
 
-    .btn-view:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255, 0, 128, 0.6);
+    .icon {
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:inline-grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(122,59,255,0.22), rgba(0,123,255,0.18));
+      color:white;
+      font-weight:700;
+      font-size:1.1rem;
+      margin-bottom:0.8rem;
+      flex-shrink:0;
     }
 
-    /* Floating musical notes animation */
-    @keyframes floatNotes {
-      0% { transform: translateY(0); opacity: 0.8; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+    .tile h3{
+      margin:0;
+      font-size:1.05rem;
+      letter-spacing:0.2px;
+      color:var(--text);
+    }
+    .tile p {
+      margin:0.75rem 0 0 0;
+      color: rgba(255,255,255,0.72);
+      font-size:0.92rem;
+      line-height:1.35;
     }
 
-    .note {
-      position: fixed;
-      bottom: -10px;
-      font-size: 1.5rem;
-      color: rgba(255,255,255,0.3);
-      animation: floatNotes linear infinite;
+    .actions {
+      margin-top:1rem;
+      display:flex;
+      gap:0.6rem;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .btn {
+      font-weight:600;
+      font-size:0.9rem;
+      padding:0.45rem 0.85rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      display:inline-flex;
+      gap:0.5rem;
+      align-items:center;
+      transition: all .18s ease;
+    }
+    .btn-primary{
+      background: linear-gradient(90deg,#7a3bff,#007bff);
+      color:white;
+      border:0;
+      box-shadow: 0 6px 20px rgba(122,59,255,0.12);
+    }
+
+    /* mobile friendly: make tile content center for small widths */
+    @media (max-width:520px){
+      .tile { padding: 1rem; min-height:140px; }
+      .tile h3 { font-size:1rem; text-align:center }
+      .tile p { display:none } /* keep tiles compact on very small screens */
+      .actions { justify-content:center }
+    }
+
+    /* accessibility focus */
+    .tile:focus {
+      outline: 3px solid rgba(122,59,255,0.12);
+      outline-offset: 3px;
+    }
+
+    /* small entrance animation */
+    @keyframes contentIn {
+      from { opacity:0; transform: translateY(8px) }
+      to { opacity:1; transform: translateY(0) }
+    }
+
+    /* gentle pulse for title underline */
+    .rule {
+      width:88px;
+      height:4px;
+      border-radius:4px;
+      margin:10px auto 20px;
+      background: linear-gradient(90deg,#7a3bff,#007bff);
+      box-shadow: 0 6px 20px rgba(122,59,255,0.12);
+      opacity:0.95;
+    }
+
+    /* small helpful footer */
+    .meta {
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      color:rgba(255,255,255,0.6);
+      font-size:0.9rem;
+      align-items:center;
     }
   </style>
 </head>
 <body>
-  <h1>My Music</h1>
+  <div class="wrap" role="main">
+    <header>
+      <div class="site-title">Music by Ether</div>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="subtitle">Original songs • Tap a tile to open lyrics</div>
+    </header>
 
-  <div class="certificates-container">
-    <div class="certificate-row">
-      <span class="certificate-title">ektarfa</span>
-      <a href="ektarfa.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
-    </div>
+    <!-- Grid of songs -->
+    <section class="grid" aria-label="Song catalog">
 
-    <div class="certificate-row">
-      <span class="certificate-title">faaslo ka pyaar</span>
-      <a href="music/stars_dont_sleep.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
-    </div>
+      <!-- Tile 1: Ektarfa (real link) -->
+      <article class="tile" tabindex="0" role="article" aria-labelledby="t-ektarfa" data-link="ektarfa.html">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="icon" aria-hidden="true">E</div>
+            <div>
+              <h3 id="t-ektarfa">Ektarfa</h3>
+              <p>One-sided love — poetic, melancholic. Click to read lyrics and feel the night.</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="ektarfa.html" rel="noopener">Open lyrics</a>
+            <button class="btn" data-action="share" data-title="Ektarfa">Share</button>
+          </div>
+        </div>
+      </article>
 
-    <div class="certificate-row">
-      <span class="certificate-title">na pata mujhe</span></span>
-      <a href="music/anjali_story_untold.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
-    </div>
+      <!-- Tile 2: Placeholder example (add actual page later) -->
+      <article class="tile" tabindex="0" role="article" aria-labelledby="t-song2" data-link="song2.html">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="icon" aria-hidden="true">S2</div>
+            <div>
+              <h3 id="t-song2">Stars Don't Sleep</h3>
+              <p>Dream-pop vibe — soft synths and night-time stories. (Add page: song2.html)</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="song2.html" rel="noopener">Open</a>
+            <button class="btn" data-action="share" data-title="Stars Don't Sleep">Share</button>
+          </div>
+        </div>
+      </article>
 
-    <div class="certificate-row">
-      <span class="certificate-title"></span>
-      <a href="music/beyond_the_skyline.html" target="_blank" class="btn-view">Listen / Read Lyrics</a>
-    </div>
+      <!-- Tile 3: Placeholder -->
+      <article class="tile" tabindex="0" role="article" aria-labelledby="t-song3" data-link="song3.html">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="icon" aria-hidden="true">A</div>
+            <div>
+              <h3 id="t-song3">Anjali — The Story Untold</h3>
+              <p>Hinglish storytelling rap — emotional and candid. (Add page: song3.html)</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="song3.html" rel="noopener">Open</a>
+            <button class="btn" data-action="share" data-title="Anjali — The Story Untold">Share</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tile 4: Placeholder -->
+      <article class="tile" tabindex="0" role="article" aria-labelledby="t-song4" data-link="song4.html">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="icon" aria-hidden="true">B</div>
+            <div>
+              <h3 id="t-song4">Beyond the Skyline</h3>
+              <p>Uplifting anthem — hope and the wide open sky. (Add page: song4.html)</p>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="song4.html" rel="noopener">Open</a>
+            <button class="btn" data-action="share" data-title="Beyond the Skyline">Share</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Add more tiles as needed -->
+    </section>
+
+    <div class="meta">Tip: On phones, tap a tile to open. Tiles auto-fit to your screen.</div>
   </div>
 
-  <!-- Floating musical notes -->
   <script>
-    const notes = ['🎵','🎶','♩','♪','♬'];
-    setInterval(() => {
-      const note = document.createElement('div');
-      note.className = 'note';
-      note.innerText = notes[Math.floor(Math.random()*notes.length)];
-      note.style.left = Math.random()*100 + 'vw';
-      note.style.animationDuration = (Math.random()*5 + 5) + 's';
-      document.body.appendChild(note);
-      setTimeout(() => note.remove(), 10000);
-    }, 500);
+    // Make the whole tile clickable (desktop + touch)
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', (e) => {
+        // If the click originated from a native anchor/button, let it handle
+        const tag = e.target.tagName.toLowerCase();
+        if(tag === 'a' || tag === 'button') return;
+        const href = tile.getAttribute('data-link');
+        if(href){
+          window.location.href = href;
+        }
+      });
+
+      // keyboard accessibility: Enter opens
+      tile.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const href = tile.getAttribute('data-link');
+          if(href) window.location.href = href;
+        }
+      });
+    });
+
+    // Simple share fallback
+    document.querySelectorAll('[data-action="share"]').forEach(btn=>{
+      btn.addEventListener('click', async (e)=>{
+        const title = btn.getAttribute('data-title') || 'Music by Ether';
+        const tile = btn.closest('.tile');
+        const url = tile ? (location.origin + '/' + (tile.getAttribute('data-link')||'').replace(/^\//,'')) : location.href;
+        const shareData = {
+          title,
+          text: `Listen to ${title} by Ether.`,
+          url
+        };
+        try {
+          if(navigator.share){
+            await navigator.share(shareData);
+          } else {
+            // fallback: copy link
+            await navigator.clipboard.writeText(url);
+            alert('Link copied to clipboard');
+          }
+        } catch(err){
+          console.error('Share failed', err);
+          alert('Share canceled or failed.');
+        }
+      });
+    });
+
+    // Improve tap behavior on mobile so tiles don't appear huge: prevent double-tap zoom on some older browsers
+    (function(){
+      let lastTouch = 0;
+      document.addEventListener('touchend', function(e){
+        const now = Date.now();
+        if(now - lastTouch <= 300){
+          e.preventDefault();
+        }
+        lastTouch = now;
+      }, {passive:false});
+    })();
   </script>
 </body>
 </html>
