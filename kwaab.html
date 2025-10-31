@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>faaslo ka pyaar | Ether</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      height: 100%;
+    }
+
+    /* Dancing Sparks Background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #ffb703;
+      text-shadow: 0 0 15px #ffb703;
+    }
+
+    .lyrics {
+      max-width: 700px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      text-align: center;
+      white-space: pre-line;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      background: #ffb703;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 30px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+
+    .back-btn:hover {
+      background: #fff;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .lyrics {
+        font-size: 1rem;
+        padding: 15px 18px;
+      }
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="sparks"></canvas>
+
+  <div class="container">
+    <h1>kwaab</h1>
+    <div class="lyrics">
+Na pata mujhe, dhoondun har gali mein, har thikaane usko
+
+Vo aati jaati hai khayalon mein jagane mujhko
+
+Na bharte paane mein likhun kuch bhi jab baare uske
+
+Bas jalte zakhm jab likhun main uske baare kuch toh
+
+
+Haan, dhoonda shehron mein, chehron mein, har thikaane usko
+
+Kya mujhko aab bhi pehchaanegi? Kya yaad usko?
+
+Sawaal poochne ko aaya toh kitaab likh doon
+
+Jawab dene ka samay na ho toh baat sun toh
+
+
+Haan, tere jaane ke baad hai mera haal kaisa?
+
+Chubhan hai dil mein, maan hai bhaari aur udaas chehra
+
+Mere baagiche mein khile na koi gul kasam se
+
+Par tere naam par baagicha, tu kamal aisa
+
+
+Toh hai khila ya ab kyu udaas baitha?
+
+Vo jugnu si thi, jagmagati, uska haal kaisa?
+
+Sawaal poochne ko aaya toh kitaab likh doon
+
+Chhodo jaane do, ab jab man ho to jawaab dena
+
+
+
+Haan, tujhko chaand mai kahun, chamakti be-misaal hai
+
+Par tujhko chaand kyun kahun, lage toh usme daag hai
+
+Main tujhko phool sa kahun, sugandh kya be-misaal hai
+
+Par tujhko phool kyun kahun, murjaata vo bhi baad mein
+
+Main tujhko kuch bhi na kahun, toh ye kalam mein daag hai
+
+Main tujhko Rab ka darja doon, toh ye khuda naaraaz hai
+
+Tujhko sabr se padha, pasandita kitaab hai
+
+Toh sach mein hai bhi, ki kahin pahaadon ke us paar hai?
+
+Toh Laila Majnu wali laila, aur main intezaar mein
+
+Kabhi kabhi main sochun, chhod doon be-wafa maan ke
+
+Kyun teri aas mein tabah karun main khud ko pyaar mein?
+
+Mere dil ko na kadar, vo hai tabah, toh jaan le
+
+Hai usko khud bhi na pata, toh hai kahaan, bas aas mein
+
+Aur main kalam se uski baat likh raha kitaab mein
+
+Kabhi main dikhna band hua, toh haan pahaadon paar mein
+
+Wahi khada hu mai, Majnu tere intezaar mein
+
+
+Farishte aakar tere baare mein bata gaye hain
+
+Main kara waqt zaya apna, vo jata gaye hain
+
+Toh uski hai talaash, kar raha vo, ayegi kabhi to
+
+Apne dil me kabhi to mujhko basa hi legi.
+
+
+Vo khush ab sang apne, uske na khayalon mein hai tu
+
+Phir mujhko kyun khayal, sapno mein sata rahi hai?
+
+Mere mann mein kuch sawaal phir se aa chuke hain
+
+Ye mujhko jeene bhi na dete, mujhko khaa rahe hain
+
+
+kya uske dil ko bhi pata ki kitna duba hu mai pyaar me?
+Usne poocha kya pasand, kis rang ka phool ya sugandh kya?
+
+Uski galti par bhi maafi maange, bhale na ho galat vo
+
+
+Uski aankhon se vo darta, phir bhi aankhein hai pasand kyun?
+
+Uski khushi ki wajah ya uski galti ka sabak vo?
+
+Kitne sawaal mann mein, kitne kar diye dafan ab?
+
+Kyunki marr chuka hai dil, na hai pata phir kyun pasand tu?
+    </div>
+    <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("sparks");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    const colors = ["#ffb703", "#f72585", "#4cc9f0", "#7209b7"];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
+</body>
+</html> 
