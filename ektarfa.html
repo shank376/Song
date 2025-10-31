@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ektarfa - Ether</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ektarfa | Ether</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #0a0018, #000);
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      font-family: "Poppins", sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
       position: relative;
+      height: 100%;
     }
 
-    /* Spark canvas */
+    /* Dancing Sparks Background */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      z-index: -1;
     }
 
-    .content {
-      position: relative;
-      z-index: 2;
-      max-width: 850px;
-      padding: 2rem;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 2.8rem;
-      color: #bb86fc;
-      text-shadow: 0 0 25px rgba(187, 134, 252, 0.8);
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      color: #00bfff;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 20px rgba(0, 191, 255, 0.7);
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #ffb703;
+      text-shadow: 0 0 15px #ffb703;
     }
 
     .lyrics {
-      white-space: pre-line;
+      max-width: 700px;
       line-height: 1.8;
-      color: #eaeaea;
-      text-shadow: 0 0 10px rgba(255,255,255,0.15);
-      font-size: 1.05rem;
+      font-size: 1.1rem;
+      text-align: center;
+      white-space: pre-line;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
     }
 
     .back-btn {
-      display: inline-block;
-      margin-top: 2rem;
-      background: linear-gradient(45deg, #7a33ff, #00bfff);
-      color: white;
-      padding: 0.8rem 1.8rem;
+      margin-top: 40px;
+      background: #ffb703;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 30px;
       border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
+      border: none;
+      cursor: pointer;
       transition: 0.3s;
+      text-transform: uppercase;
+      font-size: 1rem;
     }
 
     .back-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 20px #7a33ff;
+      background: #fff;
+      color: #111;
+      transform: scale(1.05);
     }
 
+    /* Responsive */
     @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.2rem; }
-      .lyrics { font-size: 0.9rem; line-height: 1.6; }
-      .back-btn { font-size: 0.9rem; padding: 0.6rem 1.4rem; }
+      h1 {
+        font-size: 2rem;
+      }
+      .lyrics {
+        font-size: 1rem;
+        padding: 15px 18px;
+      }
+      .back-btn {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+      }
     }
   </style>
 </head>
@@ -97,147 +97,140 @@
 
   <canvas id="sparks"></canvas>
 
-  <div class="content">
-    <h1>Ether</h1>
-    <h2>Ektarfa</h2>
-
+  <div class="container">
+    <h1>Ektarfa</h1>
     <div class="lyrics">
-Tu firse paas aa main zidd nahi karunga  
-Tu firse door ja main kuch nahi kahunga  
-Jo tere jaane se mein betha hun mehkhane mein  
-Mein kha chuka hun dhoka peene se nahi marunga  
+Tu firse paas aa main zidd nahi karunga 
+Tu firse door ja main kuch nahi kahunga
+Jo tere jaane se mein betha hun mehkhane mein 
+Mein kha chuka hun dhoka peene se nahi marunga
 
-Jo tujhse seekha hu, tujh hi pe to likhunga  
-Jo tujhko chahunga, tujh hi pe to mitunga  
-Jo haske aunga main fir se tere saamne  
-Hu napasand bata diyo main fir nahi dikhunga  
+Jo tujhse seekha hu, tujh hi pe to likhunga
+Jo tujhko chahunga, tujh hi pe to mitunga 
+Jo haske aunga main fir se tere saamne
+Hu napasand bata diyo main fir nahi dikhunga
 
-Maine dekha tujhme saadgi rahi nahi  
-Maine dekha tune koshishe bahut kari  
-Kehe jo tujhko apne hathon se saja dun  
-Hai kami tu pehne bahut fir bhi lagta kyu saji nahi  
+Maine dekha tujhme saadgi rahi nahi 
+Maine dekha tune koshishe bahut kari
+Kehe jo tujhko apne hathon se saja dun
+Hai kami tu pehne bahut Fir bhi lagta kyu saji nahi
 
-Aaj bhi aise dekhe maine daayre nahi  
-Ke tujhse baant lun mein khudko  
-Kehdun aa rahe nahi, hai tujhse milne  
+Aaj bhi aise dekhe maine daayre nahi
+Ke tujhse baant lun mein khudko 
+Kehdun aa rahe nahi, hai tujhse milne
 
-Bewafa hi the jo haske keh diya  
-Ke hum bhi dhokhe kha rahe nahi  
-Jo firse dekha meri ruk chali kalam thi  
-Dil dhadakta, aankhein bheegi, baatein tang thi  
+Bewafa hi the jo haske keh diya 
+Ke hum bhi dhokhe kha rahe nahi
 
-Jo tujhko socha mera poora ek janam thi  
-Jab tujhko dekha kisi or ki sanam thi  
-Dil to dukhta hai par jeena padhta hi hai  
-Suraj se chaand bhi akele ladta hi hai  
+Jo firse dekha meri ruk chali kalam thi 
+Dil dhadakta, aankhein bheegi, baatein tang thi 
+Jo tujhko socha mera poora ek janam thi
+Jab tujhko dekha kisi or ki sanam thi
 
-Main kitna bhoolun kissa tera adta hi hai  
-Jo kardein fasla to pyaar badhta hi hai  
-Gaane to chal rahe par baat teri meri hai  
-Chirag bujh gaye par raat teri meri hai  
+Dil to dukhta hai par jeena padhta hi hai 
+Suraj se chaand bhi akele ladta hi hai
+Main kitna bhoolun kissa tera adta hi hai
+Jo kardein fasla to pyaar badhta hi hai
 
-Hua wo ek na jo sath janam ka vaada tha  
-To iss sadi main jana kya aukat teri meri hai?  
+Gaane to chal rahe par baat teri meri hai
+Chirag bujh gaye par raat teri meri hai
+Hua wo ek na jo sath janam ka vaada tha
+To iss sadi main jana kya aukat teri meri hai?
 
-Maana main sab hi kuch jeeta kuch bhi hara na  
-Par jisko hara usko dekha fir dobara na  
-Jo dhas gaya hun jaake raet mein main aankhon tak  
-Tu hai samundar mujhpe boond ka sahara na  
+Maana main sab hi kuch jeeta kuch bhi hara na
+Par jisko hara usko dekha fir dobara na
+Jo dhas gaya hun jaake raet mein main aankhon tak
+Tu hai samundar mujhpe boond ka sahara na
 
-Na mujhse puch mere haal kya sitaro ka  
-Na dum tu kha ye aake noto ki deewaron ka  
-Hai paisa kya tu chhoti baatein na kiya kar  
-Main bas pyar se gareeb, mujhko mol na hazaro ka  
+Na mujhse puch mere haal kya sitaro ka
+Na dum tu kha ye aake noto ki deewaron ka
+Hai paisa kya tu chhoti baatein na kiya kar,
+Main bas pyar se gareeb, mujhko mol na hazaro ka
 
-Jo mujhse puchh le tu rasta baharon ka  
-To haske kehdu tu nazara meri aankhon ka  
-Main jisko kosne chala hun uska naam yaad  
-Fir bhi likh na pana dosh kaam hai gawaron ka  
+Jo mujhse puchh le tu rasta baharon ka,
+To haske kehdu tu nazara meri aankhon ka
+Main jisko kosne chala hun uska naam yaad
+Fir bhi likh na pana dosh kaam hai gawaron ka
 
-Jo tujhko dekha aasma mein chand tha nahi  
-Kahin pe chhup gaya ke kehta lagta nahi  
-Isse haseen maine dekha kahi kuch ke  
-Log yonn hi likhte rehte mujhpe aye khuda mein chand nahi  
+Jo tujhko dekha aasma mein chand tha nahi
+Kahin pe chhup gaya ke kehta lagta nahi
+Isse haseen maine dekha kahi kuch ke
+Log yonn hi likhte rehte mujhpe aye khuda mein chand nahi
 
-Ye tere reshmi jo baal jaal sazi hai  
-Mara nahi par jeete ji tu meri faansi hai  
-Daba nahi gala kyun saansein meri ghut rahi  
-Main kya hi dun saza ja teri har saza hi maafi hai  
+Ye tere reshmi jo baal jaal sazi hai
+Mara nahi par jeete ji tu meri faansi hai
+Daba nahi gala kyun saansein meri ghut rahi
+Main kya hi dun saza ja teri har saza hi maafi hai
 
-Mujhe khabar nahi tu kis zuban mein razi hai  
-Dikhe asar nahi tu kis dua mein baaki hai  
-Agar kabhi main tere saamne se guzru  
-Mujhko mil tu ya nahi par teri ek nazar hi kaafi hai  
+Mujhe khabar nahi tu kis zuban mein razi hai
+Dikhe asar nahi tu kis dua mein baaki hai
+Agar kabhi main tere saamne se guzru,
+Mujhko mil tu ya nahi par teri ek nazar hi kaafi hai
 
-Ektarfa main naam bhi bana lunga  
-Ektarfa mein naam bhi chhupa lunga  
-Ek arsa jo beete teri yaadon mein  
-Main hoke mashhoor tujhpe zindagi luta dunga  
+Ektarfa main naam bhi bana lunga
+Ektarfa mein naam bhi chhupa lunga
+Ek arsa jo beete teri yaadon mein,
+Main hoke mashhoor tujhpe zindagi luta dunga
     </div>
-
-    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+    <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
   </div>
 
   <script>
     const canvas = document.getElementById("sparks");
     const ctx = canvas.getContext("2d");
     let particles = [];
-    let w, h;
+    const colors = ["#ffb703", "#f72585", "#4cc9f0", "#7209b7"];
 
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    window.addEventListener("resize", resize);
-    resize();
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
 
     class Particle {
       constructor() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.alpha = Math.random() * 0.5 + 0.5;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(${155 + Math.random()*100}, ${100 + Math.random()*155}, 255, ${this.alpha})`;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        this.speedY = (Math.random() - 0.5) * 1.5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.x < 0 || this.x > w) this.speedX *= -1;
-        if (this.y < 0 || this.y > h) this.speedY *= -1;
-        this.alpha -= 0.002;
-        if (this.alpha <= 0) this.reset();
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
 
-      reset() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.alpha = Math.random() * 0.5 + 0.5;
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
       }
     }
 
-    for (let i = 0; i < 100; i++) particles.push(new Particle());
+    function init() {
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
 
     function animate() {
-      ctx.clearRect(0, 0, w, h);
-      particles.forEach(p => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p) => {
         p.update();
         p.draw();
       });
       requestAnimationFrame(animate);
     }
 
+    init();
     animate();
   </script>
-
 </body>
 </html>
