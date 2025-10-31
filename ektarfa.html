@@ -3,116 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ektarfa - Music by Ether</title>
+  <title>Ektarfa - Ether</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+      overflow: hidden;
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #0a0025, #000);
+      background: radial-gradient(circle at center, #0a0018, #000);
       color: white;
-      text-align: center;
-      position: relative;
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      animation: fadeIn 2s ease-in-out;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Spark canvas */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      max-width: 850px;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: 2.5rem;
-      color: #9b5cff;
-      text-shadow: 0 0 20px #7a33ff;
-      margin-bottom: 2rem;
+      font-size: 2.8rem;
+      color: #bb86fc;
+      text-shadow: 0 0 25px rgba(187, 134, 252, 0.8);
       letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #00bfff;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 20px rgba(0, 191, 255, 0.7);
     }
 
     .lyrics {
-      max-width: 800px;
-      width: 90%;
-      line-height: 1.8;
-      font-size: 1.05rem;
-      color: #eaeaea;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
       white-space: pre-line;
-      z-index: 2;
-    }
-
-    .waves {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .wave {
-      position: absolute;
-      bottom: 0;
-      width: 200%;
-      height: 200px;
-      background: linear-gradient(90deg, rgba(155, 92, 255, 0.4), rgba(0, 204, 255, 0.4));
-      opacity: 0.6;
-      border-radius: 100%;
-      animation: waveMove 10s linear infinite;
-    }
-
-    .wave:nth-child(2) {
-      animation-delay: -5s;
-      opacity: 0.3;
-    }
-
-    @keyframes waveMove {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      line-height: 1.8;
+      color: #eaeaea;
+      text-shadow: 0 0 10px rgba(255,255,255,0.15);
+      font-size: 1.05rem;
     }
 
     .back-btn {
+      display: inline-block;
       margin-top: 2rem;
       background: linear-gradient(45deg, #7a33ff, #00bfff);
       color: white;
-      border: none;
       padding: 0.8rem 1.8rem;
       border-radius: 30px;
       font-weight: 600;
-      cursor: pointer;
       text-decoration: none;
       transition: 0.3s;
-      z-index: 2;
     }
 
     .back-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #7a33ff;
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #7a33ff;
     }
 
     @media (max-width: 768px) {
-      h1 { font-size: 1.8rem; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.2rem; }
       .lyrics { font-size: 0.9rem; line-height: 1.6; }
-      .back-btn { padding: 0.7rem 1.4rem; font-size: 0.9rem; }
+      .back-btn { font-size: 0.9rem; padding: 0.6rem 1.4rem; }
     }
   </style>
 </head>
 <body>
-  <div class="waves">
-    <div class="wave"></div>
-    <div class="wave"></div>
-  </div>
 
-  <h1>Ektarfa</h1>
+  <canvas id="sparks"></canvas>
 
-  <div class="lyrics">
+  <div class="content">
+    <h1>Ether</h1>
+    <h2>Ektarfa</h2>
+
+    <div class="lyrics">
 Tu firse paas aa main zidd nahi karunga  
 Tu firse door ja main kuch nahi kahunga  
 Jo tere jaane se mein betha hun mehkhane mein  
@@ -184,8 +173,71 @@ Ektarfa main naam bhi bana lunga
 Ektarfa mein naam bhi chhupa lunga  
 Ek arsa jo beete teri yaadon mein  
 Main hoke mashhoor tujhpe zindagi luta dunga  
+    </div>
+
+    <a href="index.html" class="back-btn">⬅ Back to Home</a>
   </div>
 
-  <a href="index.html" class="back-btn">⬅ Back to Home</a>
+  <script>
+    const canvas = document.getElementById("sparks");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let w, h;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.alpha = Math.random() * 0.5 + 0.5;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${155 + Math.random()*100}, ${100 + Math.random()*155}, 255, ${this.alpha})`;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > w) this.speedX *= -1;
+        if (this.y < 0 || this.y > h) this.speedY *= -1;
+        this.alpha -= 0.002;
+        if (this.alpha <= 0) this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.alpha = Math.random() * 0.5 + 0.5;
+      }
+    }
+
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
 </body>
 </html>
